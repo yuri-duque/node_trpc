@@ -1,32 +1,33 @@
-import * as trpc from '@trpc/server/adapters/express'
 import express from 'express';
-import router from './router';
-import { expressHandler } from "trpc-playground/handlers/express"
+import * as trpcExpress from '@trpc/server/adapters/express';
+import { createContext } from './trpc/context';
+import userRouter from './routes/userRouter';
 
-const endpoint = "/trpc"
-const playground = "/playground"
+const endpoint = '/trpc';
 const PORT = 3000;
 
 const run = async () => {
-    const app = express();
+  const app = express();
 
-    app.use(express.json())
-    
-    app.use(endpoint, trpc.createExpressMiddleware({
-        router
-    }))
+  app.use(express.json());
 
-    app.use(
-        playground,
-        await expressHandler({
-            trpcApiEndpoint: endpoint,
-            playgroundEndpoint: playground,
-            router
-        })
-    )
+  app.use((req, _res, next) => {
+    // request logger
+    console.log('⬅️ ', req.method, req.path, req.body ?? req.query);
+    next();
+  });
 
-    app.listen(PORT, () => console.log(`Server is running in http://localhost:${PORT}`))
-}
+  app.use(
+    endpoint,
+    trpcExpress.createExpressMiddleware({
+      router: userRouter,
+      createContext: createContext
+    })
+  );
 
+  app.get('/', (_req, res) => res.send('hello'));
+
+  app.listen(PORT, () => console.log(`Server is running in http://localhost:${PORT}`));
+};
 
 run();

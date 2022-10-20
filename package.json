@@ -15,7 +15,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@trpc/server": "^9.27.4",
+    "@trpc/server": "^10.0.0-proxy-beta.23",
     "express": "^4.18.2",
     "trpc-playground": "^0.4.3",
     "zod": "^3.19.1"
