@@ -1,7 +1,7 @@
 # Node Express tRCP
 
 
-<h3 align="center">  
+<h3>  
 	<a href="https://nodejs.org/en/">nodejs</a>&nbsp;&nbsp;&nbsp;
 	<a href="https://expressjs.com/pt-br/">express</a>&nbsp;&nbsp;&nbsp;
 	<a href="https://trpc.io/">tRCP</a> &nbsp;&nbsp;&nbsp;
